@@ -14,7 +14,7 @@ for children ~5–12 and their adult caregivers.
 |---|---|
 | `The_Family_Dessert_Kitchen.pdf` | Publication-quality PDF (A4, 70 pp, 278 fillable AcroForm fields, 20 bookmarks) |
 | `family_dessert_kitchen.html` | Editable source document (self-contained; all art inline SVG) |
-| `build.py`, `recipes.py`, `pages.py`, `postprocess.py` | Generator that produces the HTML and finishes the PDF |
+| `build.py`, `recipes.py`, `art.py`, `pages.py`, `postprocess.py` | Generator that produces the HTML and finishes the PDF (`art.py` = original SVG hero illustrations) |
 | `fields.json` | Manifest of interactive fields + bookmarks |
 | `RECIPE_TESTING_REGISTER.md` | Every recipe and its validation status |
 | `CLAIMS_AND_SAFETY_REGISTER.md` | Every factual claim, its source, and review status |

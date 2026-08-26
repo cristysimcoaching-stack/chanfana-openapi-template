@@ -5,7 +5,8 @@ Cristy Sim · Generated 2026-08-26
 | Item | Value |
 |---|---|
 | Publication PDF | `The_Family_Dessert_Kitchen.pdf` (A4 portrait, ~1.65 MB) |
-| Editable source | `family_dessert_kitchen.html` (self-contained; all art inline SVG) + generator scripts `build.py`, `recipes.py`, `pages.py`, `postprocess.py` |
+| Editable source | `family_dessert_kitchen.html` (self-contained; all art inline SVG) + generator scripts `build.py`, `recipes.py`, `art.py`, `pages.py`, `postprocess.py` |
+| Original illustrations | 8 palette-driven flat SVG "hero" templates (`art.py`) — a themed hero on every recipe page, a large scene on every chapter divider, and two illustration cards on the cover |
 | Page count | **70 pages** (target 60–85 ✓) |
 | Recipes | **32 original development recipes** (target 30–36 ✓) across 6 chapters |
 | Interactive fillable fields | **278 genuine AcroForm widgets** — 130 text fields + 148 checkboxes |
@@ -29,7 +30,8 @@ verified with a debug pass (widget rectangles overlaid on visible boxes/lines).
 | Broken/missing glyphs (incl. em-dash, curly quotes, °) | None found |
 | Orphan headings | None found |
 | Nearly-empty accidental pages | None (recipe pages carry generous but intentional white space) |
-| Distorted images | N/A — all art is vector SVG |
+| Distorted images | N/A — all art is original vector SVG (no photos) |
+| Illustration ↔ text overlap | Checked across all 32 recipes; hero placement measured against the tallest (7-ingredient) recipes — ≥3 mm clearance from the response strip and the footer on the worst case |
 | Illegible small print | None; smallest body ≈ 7.6–7.8 pt for captions only |
 | Consistent recipe-page geometry | ✓ identical template across all 32 |
 | Consistent color/typography | ✓ single token system |

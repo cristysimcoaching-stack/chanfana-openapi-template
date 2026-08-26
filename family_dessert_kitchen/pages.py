@@ -5,6 +5,7 @@ Run:  python3 pages.py   ->  writes family_dessert_kitchen.html + fields.json
 import json, os
 from build import *
 from recipes import RECIPES
+import art
 
 CH = {5:"Frozen & Fruity",6:"Yogurt, Pudding & Creamy Cups",7:"Muffins, Bites & Small Bakes",
       8:"Warm Fruit Desserts",9:"Cookies, Bars & Squares",10:"Build-Your-Own Family Desserts"}
@@ -99,6 +100,10 @@ table.reg {{ width:100%; border-collapse:collapse; font-size:8.7pt; }}
 table.reg th,table.reg td {{ border:1px solid {RULE}; padding:5pt 7pt; text-align:left; vertical-align:top; }}
 table.reg th {{ background:{BLUE_BG}; color:{INK_DK}; font-size:8pt; text-transform:uppercase; letter-spacing:.04em; }}
 a {{ color:{BLUE}; text-decoration:none; word-break:break-word; }}
+.rc-hero {{ position:absolute; left:17mm; right:17mm; bottom:13mm; display:flex; justify-content:center; align-items:flex-end; }}
+.rc-hero svg {{ filter:drop-shadow(0 6pt 14pt rgba(20,23,28,.06)); }}
+.div-hero {{ display:flex; justify-content:center; margin-top:14pt; }}
+.div-hero svg {{ filter:drop-shadow(0 8pt 18pt rgba(20,23,28,.07)); }}
 .cover-band {{ position:absolute; left:0; right:0; top:0; height:15mm; background:{BLUE}; }}
 .cover-foot {{ position:absolute; left:0; right:0; bottom:0; height:9mm; background:{DARK_BG}; }}
 .divwrap {{ position:absolute; inset:0; padding:34mm 22mm; display:flex; flex-direction:column; }}
@@ -130,11 +135,11 @@ def wlines(prefix, n, w_mm=176, h_mm=8.6):
 
 # ================================================================= COVER
 def build_cover():
-    art = ('<div style="position:absolute; right:20mm; top:118mm; display:flex; gap:9pt;">'
-      + '<span class="icwrap" style="width:52pt;height:52pt;background:%s">%s</span>'%(MANGO_BG,IC["pop"])
-      + '<span class="icwrap" style="width:52pt;height:52pt;background:%s;margin-top:24pt">%s</span>'%(BERRY_BG,IC["cup"])
-      + '<span class="icwrap" style="width:52pt;height:52pt;background:%s">%s</span>'%(ORANGE_BG,IC["muffin"])
-      + '</div>')
+    cover_art = ('<div style="position:absolute; right:15mm; top:170mm; width:120mm; transform:rotate(-2.5deg);">'
+      + art.hero("cup", 6, w=120)
+      + '</div>'
+      + '<div style="position:absolute; left:20mm; top:200mm; width:78mm; transform:rotate(3deg);">'
+      + art.hero("pop", 1, w=78) + '</div>')
     inner = f'''<div class="cover-band"></div><div class="cover-foot"></div>
     <div class="divwrap" style="padding:24mm 20mm;">
       <div class="eyebrow">Body Recomp Bible · Independent Companion</div>
@@ -144,10 +149,10 @@ def build_cover():
       <div style="height:7mm"></div>
       <div style="font-size:15pt; color:{BLUE}; font-weight:600; max-width:120mm;">
         A Playful Guide to Cooking, Tasting &amp; Learning Together</div>
-      <div style="height:5mm"></div>
-      <p class="mute" style="max-width:110mm; font-size:10.5pt;">Thirty-two family desserts, kitchen-safety missions,
-        a Flavor Lab, and a Nutrition Explorer for children about 5–12 and the adults who cook with them.</p>
-      {art}
+      <div style="height:4mm"></div>
+      <p class="mute" style="max-width:96mm; font-size:10.5pt;">Thirty-two family desserts, safety missions, a Flavor Lab,
+        and a Nutrition Explorer — for children about 5–12 and the adults who cook with them.</p>
+      {cover_art}
       <div style="flex:1"></div>
       <div style="display:flex; justify-content:space-between; align-items:flex-end;">
         <div><div class="eyebrow" style="color:{MUTE}">By</div>
@@ -451,10 +456,13 @@ def chapter_divider(chap):
         <div class="grp" style="color:{accent}; margin-top:0">In this chapter</div>
         <ul style="columns:2; column-gap:24pt;">{items}</ul>
       </div>
+      <div class="div-hero">{art.hero(CH_HERO[chap][0], CH_HERO[chap][1], w=158)}</div>
       <div style="flex:1"></div>
       <div>{DEV_STAMP}<span class="mute small" style="margin-left:10pt">Every recipe here still requires kitchen testing.</span></div>
     </div>'''
     add_page('<div class="page">%s</div>' % inner, bookmark=f"{chap} · {CH[chap]}")
+
+CH_HERO = {5:("pop",1), 6:("cup",6), 7:("muffin",12), 8:("apple",16), 9:("cookie",21), 10:("bowl",26)}
 
 # ================================================================= RECIPE PAGE
 def recipe_page(r):
@@ -496,7 +504,8 @@ def recipe_page(r):
     <div class="panel p-blue tight" style="margin-top:9pt; display:flex; align-items:center; gap:14pt;">
       <span class="small">{checkline("made_%d"%r["n"],"<b>We made this!</b>")}</span>
       <span class="small" style="flex:1">One thing we noticed: {field("notice_%d"%r["n"],"text",92)}</span>
-    </div>'''
+    </div>
+    <div class="rc-hero">{art.hero(r["icon"], r["n"], w=96)}</div>'''
     content_page(CH[r["chap"]], inner)
 
 IC_CLOCK = svg('<circle cx="24" cy="24" r="18" fill="none" stroke="%s" stroke-width="3"/>'
